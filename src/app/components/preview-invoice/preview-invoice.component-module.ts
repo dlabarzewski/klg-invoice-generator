@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { PreviewInvoiceComponent } from './preview-invoice.component';
 
 @NgModule({
-  imports: [],
+  imports: [CommonModule],
   declarations: [PreviewInvoiceComponent],
   providers: [],
   exports: [PreviewInvoiceComponent]
