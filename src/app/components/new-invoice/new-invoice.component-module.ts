@@ -8,7 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NewInvoiceValidationErrorsModule } from 'src/app/modules/new-invoice-validation-errors/new-invoice-validation-errors.module';
+import { NewInvoiceValidationErrorsModule } from 'src/app/modules/new-invoice-validation-errors.module';
+import { FormHelpersModule } from 'src/app/modules/form-helpers.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { NewInvoiceValidationErrorsModule } from 'src/app/modules/new-invoice-va
     MatIconModule,
     MatTooltipModule,
     MatSnackBarModule,
-    NewInvoiceValidationErrorsModule
+    NewInvoiceValidationErrorsModule,
+    FormHelpersModule
   ],
   declarations: [NewInvoiceComponent],
   providers: [],

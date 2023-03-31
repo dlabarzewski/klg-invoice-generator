@@ -20,15 +20,11 @@ export class NewInvoiceComponent {
 
   constructor(private _snackBar: MatSnackBar, private _invoiceService: InvoiceService, private _router: Router) { }
 
-  getFormItems() {
-    return (this.invoiceForm.get('items') as FormArray).controls;
-  }
-
   geneateFormItem(): FormGroup {
     return new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      count: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(100), Validators.pattern(/\d+/)]),
-      price: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(1e6), Validators.pattern(/\d+/)]),
+      count: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(100), Validators.pattern(/^[0-9]*$/)]),
+      price: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(1e6), Validators.pattern(/^[0-9]*$/)]),
     });
   }
 
@@ -49,7 +45,7 @@ export class NewInvoiceComponent {
     }
 
     if (invoiceForm.invalid) {
-      invoiceForm.markAsDirty();
+      invoiceForm.markAsTouched();
       return;
     }
 

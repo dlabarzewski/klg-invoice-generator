@@ -3,11 +3,11 @@
   (ngSubmit)="onInvoiceFormSubmitted(invoiceForm)"
 >
   <ng-container formArrayName="items">
-    <div *ngFor="let item of getFormItems(); let i = index" [formGroupName]="i">
+    <div *ngFor="let item of invoiceForm.get('items')! | getFormArrayControls; let i = index" [formGroupName]="i">
       <mat-form-field apperance="fill">
         <mat-label>Name</mat-label>
         <input matInput type="text" formControlName="name" placeholder="Name" required />
-        <mat-error *ngIf="item.get('name')!.touched && item.get('name')!.invalid">{{ item.get('name')!.errors | nameValidationError }}</mat-error>
+        <mat-error *ngIf="item.get('name')! | isFormFieldInvalid">{{ item.get('name')!.errors | nameValidationError }}</mat-error>
       </mat-form-field>
 
       <mat-form-field apperance="fill">
@@ -18,13 +18,13 @@
           formControlName="count"
           placeholder="Count"
         />
-        <mat-error *ngIf="item.get('count')!.touched && item.get('count')?.invalid">{{ item.get('count')!.errors | countValidationError }}</mat-error>
+        <mat-error *ngIf="item.get('count')! | isFormFieldInvalid">{{ item.get('count')!.errors | countValidationError }}</mat-error>
       </mat-form-field>
 
       <mat-form-field apperance="fill">
         <mat-label>Price</mat-label>
         <input matInput type="text" formControlName="price" placeholder="Price" />
-        <mat-error *ngIf="item.get('price')!.touched && item.get('price')?.invalid">{{ item.get('price')!.errors | priceValidationError }}</mat-error>
+        <mat-error *ngIf="item.get('price')! | isFormFieldInvalid">{{ item.get('price')!.errors | priceValidationError }}</mat-error>
       </mat-form-field>
   
       <button mat-icon-button color="primary" matTooltip="Remove item" type="button" (click)="removeFormItem(i)">
