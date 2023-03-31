@@ -7,12 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MenuComponent } from './components/layout/menu/menu.component'; 
-import { MatListModule } from '@angular/material/list'; 
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

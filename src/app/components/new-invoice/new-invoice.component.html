@@ -2,37 +2,39 @@
   [formGroup]="invoiceForm"
   (ngSubmit)="onInvoiceFormSubmitted(invoiceForm)"
 >
-  <div>
-    <mat-form-field apperance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" formControlName="name" placeholder="Name" required />
-      <mat-error>Name is required</mat-error>
-    </mat-form-field>
+  <div formArrayName="items">
+    <div *ngFor="let item of getFormItems(); let i = index" [formGroupName]="i">
+      <mat-form-field apperance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Name" required />
+        <mat-error *ngIf="item.get('name')!.touched && item.get('name')!.invalid">{{ item.get('name')!.errors | nameValidationError }}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field apperance="fill">
-      <mat-label>Count</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="count"
-        placeholder="Count"
-      />
-      <mat-error>Count is required</mat-error>
-    </mat-form-field>
+      <mat-form-field apperance="fill">
+        <mat-label>Count</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="count"
+          placeholder="Count"
+        />
+        <mat-error *ngIf="item.get('count')!.touched && item.get('count')?.invalid">{{ item.get('count')!.errors | countValidationError }}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field apperance="fill">
-      <mat-label>Price</mat-label>
-      <input matInput type="text" formControlName="price" placeholder="Price" />
-      <mat-error>Price is required</mat-error>
-    </mat-form-field>
-
-    <button mat-icon-button color="primary">
-      <mat-icon>delete</mat-icon>
-    </button>
+      <mat-form-field apperance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput type="text" formControlName="price" placeholder="Price" />
+        <mat-error *ngIf="item.get('price')!.touched && item.get('price')?.invalid">{{ item.get('price')!.errors | priceValidationError }}</mat-error>
+      </mat-form-field>
+  
+      <button mat-icon-button color="primary" matTooltip="Remove item" type="button" (click)="removeFormItem(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div>
-    <button mat-button color="primary" class="add-new-item-button">
+    <button mat-button color="primary" class="add-new-item-button" type="button" (click)="addNewFormItem()">
       <mat-icon>add</mat-icon>
       Add new item
     </button>
@@ -41,5 +43,4 @@
   <div>
     <button mat-raised-button color="primary">Submit</button>
   </div>
-  
 </form>
