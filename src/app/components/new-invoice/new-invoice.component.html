@@ -2,7 +2,7 @@
   [formGroup]="invoiceForm"
   (ngSubmit)="onInvoiceFormSubmitted(invoiceForm)"
 >
-  <div formArrayName="items">
+  <ng-container formArrayName="items">
     <div *ngFor="let item of getFormItems(); let i = index" [formGroupName]="i">
       <mat-form-field apperance="fill">
         <mat-label>Name</mat-label>
@@ -31,7 +31,7 @@
         <mat-icon>delete</mat-icon>
       </button>
     </div>
-  </div>
+  </ng-container>
 
   <div>
     <button mat-button color="primary" class="add-new-item-button" type="button" (click)="addNewFormItem()">

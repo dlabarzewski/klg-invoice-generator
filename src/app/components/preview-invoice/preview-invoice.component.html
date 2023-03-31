@@ -1,10 +1,12 @@
-<h1>KLG test task</h1>
+<ng-container *ngIf="company$ | async as company">
+  <h1>{{ company.name }}</h1>
 
-<h2>Poland</h2>
+  <h2>{{ company.phones }}</h2>
 
-<p>Phones: 123 456 789, 789-456-123</p>
+  <p>Phones: {{ company.phones.join(', ') }}</p>
 
-<hr>
+  <hr>
+</ng-container>
 
 <table *ngIf="invoice$ | async as invoice; else empty">
     <tr>

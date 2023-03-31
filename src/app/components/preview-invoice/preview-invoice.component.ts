@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { map, Observable, of, shareReplay, switchMap, take } from 'rxjs';
-import { InvoicePreviewInvoiceQueryModel } from 'src/app/query-models/invoice-preview-invoice.query-model';
+import { Observable, map, of, shareReplay, switchMap, take } from 'rxjs';
+import { InvoicePreviewInvoiceQueryModel } from '../../query-models/invoice-preview-invoice.query-model';
 import { InvoiceService } from '../../services/invoice.service';
+import { CompanyService } from '../../services/company.service';
+import { InvoicePreviewCompanyQueryModel } from 'src/app/query-models/invoice-preview-company.query-model';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -11,7 +13,7 @@ import { InvoiceService } from '../../services/invoice.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewInvoiceComponent implements OnDestroy {
-  readonly invoice$: Observable<InvoicePreviewInvoiceQueryModel|undefined> = this._invoiceService.getLast().pipe(
+  readonly invoice$: Observable<InvoicePreviewInvoiceQueryModel | undefined> = this._invoiceService.getLast().pipe(
     map(invoice => {
       if (invoice === undefined) return undefined;
 
@@ -22,8 +24,15 @@ export class PreviewInvoiceComponent implements OnDestroy {
     }),
     shareReplay(1)
   );
+  readonly company$: Observable<InvoicePreviewCompanyQueryModel> = this._companyService.getInfo().pipe(
+    map(company => ({
+      name: company.name,
+      address: company.address,
+      phones: company.phones
+    }))
+  );
 
-  constructor(private _invoiceService: InvoiceService) {
+  constructor(private _invoiceService: InvoiceService, private _companyService: CompanyService) {
   }
 
   ngOnDestroy(): void {
