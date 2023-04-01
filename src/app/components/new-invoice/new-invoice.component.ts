@@ -45,7 +45,7 @@ export class NewInvoiceComponent {
     }
 
     if (invoiceForm.invalid) {
-      invoiceForm.markAsTouched();
+      invoiceForm.markAllAsTouched();
       return;
     }
 
