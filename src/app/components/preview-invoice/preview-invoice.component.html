@@ -1,31 +1,44 @@
-<ng-container *ngIf="company$ | async as company">
-  <h1>{{ company.name }}</h1>
+<ng-container *ngIf="company$ | withLoading | async as company">
+  <mat-spinner *ngIf="company.loading"></mat-spinner>
+  <p *ngIf="company.error">There was an error</p>
 
-  <h2>{{ company.address }}</h2>
+  <ng-container *ngIf="!company.loading && !company.error && company.value">
+    <h1>{{ company.value.name }}</h1>
 
-  <p>Phones: {{ company.phones.join(', ') }}</p>
+    <h2>{{ company.value.address }}</h2>
 
-  <hr>
+    <p>Phones: {{ company.value.phones | arrayToCsv }}</p>
+
+    <hr>
+  </ng-container>
 </ng-container>
 
-<table *ngIf="invoice$ | async as invoice; else empty">
-  <tr>
-    <th>#</th>
-    <th>Item</th>
-    <th>Count</th>
-    <th>Price</th>
-  </tr>
-  <tr *ngFor="let item of invoice.items; let i = index">
-    <td>{{ i + 1 }}</td>
-    <td>{{ item.name }}</td>
-    <td>{{ item.count }}</td>
-    <td>{{ item.price }}</td>
-  </tr>
-  <tr>
-    <td class="right-align" colspan="4">Sum: {{ invoice.totalValue }}</td>
-  </tr>
-</table>
+<ng-container *ngIf="invoice$ | withLoading | async as invoice">
+  <mat-spinner *ngIf="invoice.loading"></mat-spinner>
+  <p *ngIf="invoice.error">There was an error</p>
 
-<ng-template #empty>
-  <p>No items</p>
-</ng-template>
+  <ng-container *ngIf="!invoice.loading && !invoice.error">
+    <table *ngIf="invoice.value && invoice.value.items.length; else empty">
+      <tr>
+        <th>#</th>
+        <th>Item</th>
+        <th>Count</th>
+        <th>Price</th>
+      </tr>
+      <tr *ngFor="let item of invoice.value.items; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.count }}</td>
+        <td>{{ item.price }}</td>
+      </tr>
+      <tr>
+        <td class="right-align" colspan="4">Sum: {{ invoice.value.totalValue }}</td>
+      </tr>
+    </table>
+
+    <ng-template #empty>
+      <p>No items</p>
+    </ng-template>
+  </ng-container>
+
+</ng-container>
