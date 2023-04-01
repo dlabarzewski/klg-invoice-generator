@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -7,6 +7,10 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated
 })
-export class MenuComponent {
+export class MenuComponent implements AfterViewInit {
+  constructor(private _ref: ChangeDetectorRef) { }
 
+  ngAfterViewInit(): void {
+    this._ref.detach();
+  }
 }
