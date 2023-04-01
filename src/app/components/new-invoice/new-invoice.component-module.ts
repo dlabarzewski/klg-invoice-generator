@@ -8,8 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NewInvoiceValidationErrorsModule } from 'src/app/modules/new-invoice-validation-errors.module';
-import { FormHelpersModule } from 'src/app/modules/form-helpers.module';
+import { NewInvoiceValidationErrorsModule } from 'src/app/pipes/new-invoice/new-invoice-validation-errors.module';
+import { FormHelpersModule } from 'src/app/pipes/forms/form-helpers.module';
 
 @NgModule({
   imports: [

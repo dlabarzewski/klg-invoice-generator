@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CompanyModel } from '../models/company.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyService {
@@ -9,6 +10,6 @@ export class CompanyService {
   }
 
   getInfo(): Observable<CompanyModel> {
-    return this._httpClient.get<CompanyModel>('/assets/company.json');
+    return this._httpClient.get<CompanyModel>(environment.companyEndpoint);
   }
 }

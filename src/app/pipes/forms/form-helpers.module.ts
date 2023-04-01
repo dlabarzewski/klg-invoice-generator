@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { GetFormArrayControlsPipe } from '../pipes/forms/get-form-array-controls.pipe';
-import { IsFormFieldInvalidPipe } from '../pipes/forms/is-form-field-invalid.pipe';
+import { GetFormArrayControlsPipe } from './get-form-array-controls.pipe';
+import { IsFormFieldInvalidPipe } from './is-form-field-invalid.pipe';
 
 @NgModule({
   declarations: [IsFormFieldInvalidPipe, GetFormArrayControlsPipe],

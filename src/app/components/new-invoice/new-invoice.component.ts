@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { InvoiceService } from '../../services/invoice.service';
 import { InvoiceModel } from '../../models/invoice.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { take, tap } from 'rxjs';
+import { catchError, of, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-new-invoice',
@@ -15,12 +15,12 @@ import { take, tap } from 'rxjs';
 })
 export class NewInvoiceComponent {
   readonly invoiceForm: FormGroup = new FormGroup({
-    items: new FormArray([this.geneateFormItem()])
+    items: new FormArray([this._generateFormItem()])
   });
 
   constructor(private _snackBar: MatSnackBar, private _invoiceService: InvoiceService, private _router: Router) { }
 
-  geneateFormItem(): FormGroup {
+  private _generateFormItem(): FormGroup {
     return new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
       count: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(100), Validators.pattern(/^[0-9]*$/)]),
@@ -29,7 +29,7 @@ export class NewInvoiceComponent {
   }
 
   addNewFormItem() {
-    (this.invoiceForm.get('items') as FormArray).push(this.geneateFormItem());
+    (this.invoiceForm.get('items') as FormArray).push(this._generateFormItem());
   }
 
   removeFormItem(index: number) {
@@ -57,6 +57,10 @@ export class NewInvoiceComponent {
       take(1),
       tap(_ => {
         this._router.navigateByUrl('/preview');
+      }),
+      catchError(e => {
+        this._snackBar.open('There was an error while creating invoice', 'Ok');
+        return of();
       })
     ).subscribe();
   }

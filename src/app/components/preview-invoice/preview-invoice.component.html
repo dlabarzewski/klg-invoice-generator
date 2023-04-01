@@ -1,7 +1,7 @@
 <ng-container *ngIf="company$ | async as company">
   <h1>{{ company.name }}</h1>
 
-  <h2>{{ company.phones }}</h2>
+  <h2>{{ company.address }}</h2>
 
   <p>Phones: {{ company.phones.join(', ') }}</p>
 
@@ -9,21 +9,21 @@
 </ng-container>
 
 <table *ngIf="invoice$ | async as invoice; else empty">
-    <tr>
-        <th>#</th>
-        <th>Item</th>
-        <th>Count</th>
-        <th>Price</th>
-    </tr>
-    <tr *ngFor="let item of invoice.items; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.count }}</td>
-        <td>{{ item.price }}</td>
-    </tr>
-    <tr>
-        <td class="right-align" colspan="4">Sum: {{ invoice.totalValue }}</td>
-    </tr>
+  <tr>
+    <th>#</th>
+    <th>Item</th>
+    <th>Count</th>
+    <th>Price</th>
+  </tr>
+  <tr *ngFor="let item of invoice.items; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ item.name }}</td>
+    <td>{{ item.count }}</td>
+    <td>{{ item.price }}</td>
+  </tr>
+  <tr>
+    <td class="right-align" colspan="4">Sum: {{ invoice.totalValue }}</td>
+  </tr>
 </table>
 
 <ng-template #empty>

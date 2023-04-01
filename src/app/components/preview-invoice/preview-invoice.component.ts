@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Observable, map, of, shareReplay, switchMap, take } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 import { InvoicePreviewInvoiceQueryModel } from '../../query-models/invoice-preview-invoice.query-model';
 import { InvoiceService } from '../../services/invoice.service';
 import { CompanyService } from '../../services/company.service';
@@ -36,13 +36,6 @@ export class PreviewInvoiceComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.invoice$.pipe(
-      take(1),
-      switchMap(invoice => {
-        if (invoice === undefined) return of();
-
-        return this._invoiceService.clearLast();
-      })
-    ).subscribe();
+    this._invoiceService.clear();
   }
 }

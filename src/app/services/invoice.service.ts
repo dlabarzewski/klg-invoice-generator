@@ -17,9 +17,7 @@ export class InvoiceService {
     return this._lastInvoice$;
   }
 
-  clearLast(): Observable<void> {
+  clear(): void {
     this._lastInvoiceSubject.next(undefined);
-
-    return of(void 0);
   }
 }
